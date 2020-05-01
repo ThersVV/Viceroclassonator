@@ -20,9 +20,9 @@ namespace testest
             string Class = Console.ReadLine();
             if (Class.Contains("+"))
             {
-                string[] Brambora = new string[(Math.Max(Math.Max(support.Length, flanker.Length), Math.Max (tank.Length, damage.Length)))*11];
-                Brambora = ClassOne(Class, support, flanker, tank, damage, 0);
                 int Loong = Class.Length;
+                string[] Brambora = new string[(Math.Max(Math.Max(support.Length, flanker.Length), Math.Max (tank.Length, damage.Length)))*(Loong/2+1)];
+                Brambora = ClassOne(Class, support, flanker, tank, damage, 0);
                 int Petr = 0;
                 while (Petr != Loong-1)
                 {
