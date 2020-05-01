@@ -18,22 +18,28 @@ namespace testest
             Random rnd = new Random();
             Console.WriteLine("Select your class: Support (s), Flank(f), Tank(t), Damage(d) or all of them (all)");
             string Class = Console.ReadLine();
-           
             int Loong = Class.Length;
-            string[] Brambora = new string[(Math.Max(Math.Max(support.Length, flanker.Length), Math.Max (tank.Length, damage.Length)))*(Loong/2+1)];
+            string[] Brambora = new string[(Math.Max(Math.Max(support.Length, flanker.Length), Math.Max(tank.Length, damage.Length))) * (Loong / 2 + 1)];
             Brambora = ClassOne(Class, support, flanker, tank, damage, 0);
-            if (Class.Contains("+"))
+            if (Class.Contains("+") && !Class.ToLower().Contains("all"))
             {
                 for (int Petr = 2; Petr != Loong + 1; Petr += 2)
                 {
                     Brambora = Brambora.Concat(ClassOne(Class, support, flanker, tank, damage, Petr)).ToArray();
                 }
             }
+            else
+            {
+                if (Class.ToLower().Contains("all"))
+                {
+                    int cislo = rnd.Next(all.Length);
+                    Console.WriteLine(all[cislo]);
+                }
+            }
             int cislo69 = rnd.Next(Brambora.Length);
             Console.WriteLine(Brambora[cislo69]);
             Console.ReadKey();
         }
-
         static string[] ClassOne(string Class, string[] support, string[] flanker, string[] tank, string[] damage, int Lett)
         {
             string[] ClassJedna = new string[14];
@@ -51,7 +57,7 @@ namespace testest
                 case "d":
                     ClassJedna = damage;
                     break;
-                    }
+            }
             return ClassJedna;
         }
     }
