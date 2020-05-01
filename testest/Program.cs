@@ -16,60 +16,24 @@ namespace testest
             string[] damage = { "Bomb king", "Cassie", "Dredge", "Drogoz", "Imani", "Kinessa", "Lian", "Shalin", "Strix", "Tiberius", "Tyra", "Viktor", "Vivian", "Willo" };
             string[] all = support.Concat(flanker.Concat(tank.Concat(damage))).ToArray();
             Random rnd = new Random();
-            Console.WriteLine("Choose your class: Support (s), Flank(f), Tank(t), Damage(d) or all of them (all)");
+            Console.WriteLine("Select your class: Support (s), Flank(f), Tank(t), Damage(d) or all of them (all)");
             string Class = Console.ReadLine();
+           
+            int Loong = Class.Length;
+            string[] Brambora = new string[(Math.Max(Math.Max(support.Length, flanker.Length), Math.Max (tank.Length, damage.Length)))*(Loong/2+1)];
+            Brambora = ClassOne(Class, support, flanker, tank, damage, 0);
             if (Class.Contains("+"))
             {
-                int Loong = Class.Length;
-                string[] Brambora = new string[(Math.Max(Math.Max(support.Length, flanker.Length), Math.Max (tank.Length, damage.Length)))*(Loong/2+1)];
-                Brambora = ClassOne(Class, support, flanker, tank, damage, 0);
-                int Petr = 0;
-                while (Petr != Loong-1)
+                for (int Petr = 2; Petr != Loong + 1; Petr += 2)
                 {
-                    Brambora= Brambora.Concat(ClassOne(Class, support, flanker, tank, damage, Petr)).ToArray();
-                    Petr += 2;
-                }
-                int cislo69 = rnd.Next(Brambora.Length);
-                Console.WriteLine(Brambora[cislo69]);               
-
-            }
-            else
-            {
-                if (Class.ToLower().Contains("all"))
-                {
-
-                    int cislo = rnd.Next(all.Length);
-                    Console.WriteLine(all[cislo]);
-                }
-                if (Class.ToLower().Contains("s"))
-                {
-                    Console.WriteLine("");
-                    int cislo = rnd.Next(support.Length);
-                    Console.WriteLine(support[cislo]);
-                }
-                if (Class.ToLower().Contains("f"))
-                {
-                    Console.WriteLine("");
-                    int cislo = rnd.Next(flanker.Length);
-                    Console.WriteLine(flanker[cislo]);
-                }
-                if (Class.ToLower().Contains("t") || Class.ToLower().Contains("tank") || Class.ToLower().Contains("front"))
-                {
-                    Console.WriteLine("");
-                    int cislo = rnd.Next(tank.Length);
-                    Console.WriteLine(tank[cislo]);
-                }
-                if (Class.ToLower().Contains("d") || Class.ToLower().Contains("dam") || Class.ToLower().Contains("dmg"))
-                {
-                    Console.WriteLine("");
-                    int cislo = rnd.Next(damage.Length);
-                    Console.WriteLine(damage[cislo]);
+                    Brambora = Brambora.Concat(ClassOne(Class, support, flanker, tank, damage, Petr)).ToArray();
                 }
             }
-
-
+            int cislo69 = rnd.Next(Brambora.Length);
+            Console.WriteLine(Brambora[cislo69]);
             Console.ReadKey();
         }
+
         static string[] ClassOne(string Class, string[] support, string[] flanker, string[] tank, string[] damage, int Lett)
         {
             string[] ClassJedna = new string[14];
